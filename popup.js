@@ -112,91 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     showToast('Processing your text...', 'info');
     
     // Show processing state
-    enhanceBtn.disabled = true;
-    enhanceBtn.classList.add('processing');
-    enhanceBtn.innerHTML = '<span class="material-symbols-rounded">sync</span> Processing...';
-    
-    // Get API settings
-    chrome.storage.sync.get(['apiKey', 'model', 'temperature', 'markdown'], function(settings) {
-      if (!settings.apiKey) {
-        showToast('Please add your API key in Settings', 'error');
-        
-        // Reset button state
-        enhanceBtn.disabled = false;
-        enhanceBtn.classList.remove('processing');
-        enhanceBtn.innerHTML = '<span class="material-symbols-rounded">auto_awesome</span> Enhance';
-        
-        // Switch to settings tab
-        navItems.forEach(t => t.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
-        
-        document.querySelector('[data-tab="settings"]').classList.add('active');
-        document.getElementById('settings').classList.add('active');
-        return;
-      }
-      
-      // Call the enhanceText function
-      enhanceText(promptText, settings);
-    });
-  });
   
-  // Process text enhancement
-  function enhanceText(text, settings) {
-    // Build the API request data
-    const requestData = {
-      model: settings.model || 'gemini-2.0-flash',
-      temperature: settings.temperature !== undefined ? settings.temperature : 0.7,
-      text: text,
-      markdown: settings.markdown !== undefined ? settings.markdown : true
-    };
-    // Show loading in output area
-    showEnhancedOutput(text, 'Enhancing your text...', requestData.model, true);
-    // Get API key and call Gemini
-    chrome.storage.sync.get(['apiKey'], function(data) {
-      const API_KEY = data.apiKey;
-      if (!API_KEY) {
-        showToast('Please add your API key in Settings', 'error');
-        hideEnhancedOutput();
-        return;
-      }
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${requestData.model}:generateContent?key=${API_KEY}`;
-      const prompt = `Correct spelling and grammar, remove explicit language, and rewrite the following as a single, clear sentence. Only return the improved sentence, nothing else: "${text}"`;
-      const requestBody = {
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: requestData.temperature }
-      };
-      fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-      })
-      .then(response => {
-        if (!response.ok) throw new Error('API error: ' + response.status);
-        return response.json();
-      })
-      .then(data => {
-        let enhanced = '';
-        if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text) {
-          enhanced = data.candidates[0].content.parts[0].text;
-        } else {
-          enhanced = 'No enhanced text returned.';
-        }
-        // Add to history
-        addToHistory(text, enhanced, requestData.model);
-        showToast('Text enhanced successfully!', 'success');
-        showEnhancedOutput(text, enhanced, requestData.model);
-      })
-      .catch(err => {
-        showToast('Error: ' + err.message, 'error');
-        hideEnhancedOutput();
-      })
-      .finally(() => {
-        enhanceBtn.disabled = false;
-        enhanceBtn.classList.remove('processing');
-        enhanceBtn.innerHTML = '<span class="material-symbols-rounded">auto_awesome</span> Enhance';
-      });
-    });
-  }
 
   // Show enhanced output in Home tab
   function showEnhancedOutput(original, enhanced, model, isLoading) {
@@ -762,28 +678,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // API Key validation and paste support
-  const apiKeyInput = document.getElementById('apiKey');
-  if (apiKeyInput) {
-    apiKeyInput.addEventListener('paste', function(e) {
-      e.preventDefault();
-      const pasted = (e.clipboardData || window.clipboardData).getData('text');
-      apiKeyInput.value = pasted;
-      validateApiKeyInput();
-    });
-    apiKeyInput.addEventListener('input', validateApiKeyInput);
-  }
-  function validateApiKeyInput() {
-    const val = apiKeyInput.value.trim();
-    // Google API keys start with AIzaSy and are 39 chars long
-    if (!/^AIzaSy[\w-]{33}$/.test(val)) {
-      apiKeyInput.classList.add('input-error');
-      showToast('Please enter a valid API key (starts with AIzaSy...)', 'warning');
-      return false;
-    } else {
-      apiKeyInput.classList.remove('input-error');
-      return true;
-    }
-  }
   // Prevent saving invalid API key
   const saveBtn = document.getElementById('saveBtn');
   if (saveBtn) {
