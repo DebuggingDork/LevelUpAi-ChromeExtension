@@ -11,13 +11,6 @@
 <body>
   <div class="app-container">
     <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-      <div class="logo-container">
-        <div class="logo">
-          <img src="icons/icon48.png" width="32" height="32" alt="LevelUp Icon" style="vertical-align:middle; margin-right:8px;">
-          <h1>LevelUp AI</h1>
-        </div>
-      </div>
       
       <nav class="nav-menu">
         <a href="#home" class="nav-item active" data-tab="home">
@@ -139,15 +132,7 @@
             </button>
           </div>
         </header>
-        
-        <div class="favorites-list" id="favoritesList">
-          <!-- This will be populated by JavaScript -->
-          <div class="empty-state">
-            <span class="material-symbols-rounded">star</span>
-            <p>No favorites yet</p>
-            <span>Save your favorite prompts for quick access</span>
-          </div>
-        </div>
+
       </section>
 
 <!-- Settings Tab -->
@@ -218,7 +203,7 @@
               <span class="api-label">API Key 1</span>
               <span class="api-status active">Active</span>
             </div>
-            <button class="copy-api-btn" data-api="AIzaSyDYNaD8mMfIuWq_xcIWm_20Z3RyOCYXuJs">
+            <button class="copy-api-btn" data-api="">
               <span class="material-symbols-rounded">content_copy</span>
               Copy API
             </button>
@@ -229,7 +214,7 @@
               <span class="api-label">API Key 2</span>
               <span class="api-status active">Active</span>
             </div>
-            <button class="copy-api-btn" data-api="AIzaSyBV2aZJ8Ryn_L06HOx8quwMOr61A2gBuQo">
+            <button class="copy-api-btn" data-api="">
               <span class="material-symbols-rounded">content_copy</span>
               Copy API
             </button>
@@ -240,7 +225,7 @@
               <span class="api-label">API Key 3</span>
               <span class="api-status active">Active</span>
             </div>
-            <button class="copy-api-btn" data-api="AIzaSyAxwNKX23bVezEMwgZVyr7bWcWvtEU9mE8">
+            <button class="copy-api-btn" data-api="">
               <span class="material-symbols-rounded">content_copy</span>
               Copy API
             </button>
@@ -251,7 +236,7 @@
               <span class="api-label">API Key 4</span>
               <span class="api-status active">Active</span>
             </div>
-            <button class="copy-api-btn" data-api="AIzaSyCXoBrJv6m64GjzFLBxDIwiRdFLIA98qpU">
+            <button class="copy-api-btn" data-api="">
               <span class="material-symbols-rounded">content_copy</span>
               Copy API
             </button>
@@ -279,22 +264,7 @@
           </div>
         </div>
         
-        <div class="form-group">
-          <label class="form-label" for="temperature">
-            Temperature
-            <span class="value-display">0.7</span>
-          </label>
-          <div class="slider-container">
-            <input type="range" id="temperature" class="slider" min="0" max="1" step="0.1" value="0.7">
-            <div class="slider-labels">
-              <span>Precise</span>
-              <span>Balanced</span>
-              <span>Creative</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     
     <div class="card settings-card">
       <div class="card-header">
@@ -321,17 +291,6 @@
             </div>
             <label class="switch">
               <input type="checkbox" id="autoCopy">
-              <span class="slider round"></span>
-            </label>
-          </div>
-          
-          <div class="toggle-item">
-            <div class="toggle-info">
-              <label for="notifications">Notifications</label>
-              <span class="helper-text">Show desktop notifications</span>
-            </div>
-            <label class="switch">
-              <input type="checkbox" id="notifications" checked>
               <span class="slider round"></span>
             </label>
           </div>
@@ -424,13 +383,6 @@
             </svg>
             <span>Email</span>
           </a>
-          <a href="https://www.linkedin.com/in/mamidala-mani-4b0b2a287" target="_blank" class="creator-link linkedin-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-              <circle cx="4" cy="4" r="2"/>
-            </svg>
-            <span>LinkedIn</span>
-          </a>
           <a href="https://github.com/DebuggingDork" target="_blank" class="creator-link github-link">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
@@ -442,18 +394,7 @@
     </div>
 
     <!-- Learn More -->
-    <div class="about-card cta-card">
-      <div class="cta-content">
-        <h3>Want to Learn More?</h3>
-        <p>Explore all features and advanced tips in our comprehensive guide.</p>
-        <a href="https://level-up-extension-guide-two.vercel.app/" target="_blank" class="learn-more-btn">
-          <span>Full User Guide</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M7 17L17 7M17 7H7M17 7V17"/>
-          </svg>
-        </a>
-      </div>
-    </div>
+ 
   </div>
 </section>
     </main>
@@ -473,6 +414,6 @@
     </div>
   </div>
 
-  <script src="popup.js"></script>
+  <script src="popu1p.js"></script>
 </body>
 </html>
