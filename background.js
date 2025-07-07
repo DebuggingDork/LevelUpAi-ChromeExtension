@@ -110,7 +110,7 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
       });
       
       // Handle disconnection
-      port.onDisconnect.addListener(function() {
+      port.onDisconnect(function() {
         if (chrome.runtime.lastError) {
           console.error('Port disconnected with error:', chrome.runtime.lastError);
         } else {
